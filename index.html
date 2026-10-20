@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nuru – La lumière contre les arnaques en ligne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F6FC;--surface:#FFFFFF;--ink:#101A3A;--muted:#4A5578;--line:#D9E0F0;
+  --gold:#F5B73B;--green:#0F8A5F;--night:#101A3A;--on-night:#F3F6FC;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1128;--surface:#131D3F;--ink:#EDF1FB;--muted:#A5B0D0;--line:#26335F;--night:#070C1D}}
+:root[data-theme="dark"]{--bg:#0A1128;--surface:#131D3F;--ink:#EDF1FB;--muted:#A5B0D0;--line:#26335F;--night:#070C1D}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "DM Sans",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--night);z-index:10}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",system-ui,sans-serif;line-height:1.1;margin:0}
+.flag{height:5px;background:linear-gradient(90deg,#008751 0 33.3%,#FCD116 33.3% 66.6%,#E8112D 66.6%)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--night);color:var(--on-night)}
+.bar{max-width:980px;margin:auto;display:flex;align-items:center;gap:12px;padding:10px 16px}
+.logo{font:800 22px "Bricolage Grotesque",sans-serif;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo svg{filter:drop-shadow(0 0 6px rgba(245,183,59,.9))}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px 4px rgba(245,183,59,.7)}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+nav::-webkit-scrollbar{display:none}
+nav button{background:none;border:0;color:inherit;font:500 15px "DM Sans",sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;opacity:.75}
+nav button[aria-selected="true"]{background:var(--gold);color:#101A3A;opacity:1;font-weight:700}
+.menu{display:none;margin-left:auto;background:var(--gold);color:#101A3A;border:0;border-radius:999px;padding:10px 18px;min-height:44px;font:700 16px "DM Sans",sans-serif;cursor:pointer}
+@media(max-width:760px){
+ .menu{display:block}
+ nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:6px;margin:0;padding:8px 16px 16px;background:var(--night);border-top:1px solid rgba(255,255,255,.15);overflow:visible}
+ nav.open{display:flex}
+ nav button{font-size:18px;padding:14px 16px;min-height:48px;text-align:left;border-radius:12px;opacity:1}
+}
+button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+main{max-width:980px;margin:auto;padding:0 16px 60px}
+section[hidden]{display:none}
+.hero{position:relative;overflow:hidden;margin:0 -16px;padding:64px 20px 56px;background:var(--night);color:var(--on-night)}
+.hero::before{content:"";position:absolute;left:50%;top:-120px;width:620px;height:620px;transform:translateX(-50%);background:radial-gradient(circle,rgba(245,183,59,.55),rgba(245,183,59,0) 65%);animation:rise 1.6s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateX(-50%) scale(.4)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+.hero>*{position:relative}
+.hero h1{font-size:clamp(64px,19vw,150px);font-weight:800;letter-spacing:-.03em}
+.hero p{max-width:34ch;font-size:20px;margin:14px 0 0}
+.count{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.count div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:10px 14px;min-width:72px;text-align:center}
+.count b{display:block;font:800 30px "Bricolage Grotesque",sans-serif;color:var(--gold)}
+.count span{font-size:13px;opacity:.8}
+.hint{margin-top:10px;font-size:15px;opacity:.85}
+.btn{display:inline-block;margin-top:26px;background:var(--gold);color:#101A3A;font:700 16px "DM Sans",sans-serif;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;text-decoration:none}
+.panel{padding:36px 0 0}
+.panel h2{font-size:clamp(30px,6vw,46px);margin-bottom:14px}
+.lead{max-width:60ch;color:var(--muted)}
+.grid{display:grid;gap:14px;margin-top:24px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.card.main{border-left:6px solid var(--green)}
+.profile{display:grid;gap:22px;grid-template-columns:1fr;margin-top:20px}
+@media(min-width:760px){.profile{grid-template-columns:260px 1fr}}
+.id{background:var(--night);color:var(--on-night);border-radius:20px;padding:26px}
+.photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 28px rgba(245,183,59,.6);display:block}
+.mono{width:84px;height:84px;border-radius:50%;background:var(--gold);color:#101A3A;display:grid;place-items:center;font:800 32px "Bricolage Grotesque",sans-serif;box-shadow:0 0 28px rgba(245,183,59,.6)}
+.id h3{margin-top:16px;font-size:22px}
+.id p{margin:6px 0 0;font-size:15px;opacity:.85}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tags span{border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:4px 12px;font-size:14px}
+.steps{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.steps li{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.steps i{flex:none;width:34px;height:34px;border-radius:50%;background:var(--gold);color:#101A3A;display:grid;place-items:center;font:800 16px "Bricolage Grotesque",sans-serif;font-style:normal}
+.steps strong{display:block}
+.steps span{color:var(--muted);font-size:16px}
+.tl{margin:24px 0 0;padding:0 0 0 22px;border-left:3px solid var(--gold);list-style:none;display:grid;gap:22px}
+.tl li{position:relative}
+.tl li::before{content:"";position:absolute;left:-30px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--gold)}
+.tl li.big::before{background:var(--green);width:17px;height:17px;left:-32px}
+.tl b{display:block;font:700 19px "Bricolage Grotesque",sans-serif}
+.tl span{color:var(--muted);font-size:16px}
+footer{max-width:980px;margin:auto;padding:0 16px 40px;color:var(--muted);font-size:14px}
+@media(prefers-reduced-motion:reduce){.hero::before{animation:none}}
+</style>
+</head>
+<body>
+<div class="flag"></div>
+<header>
+  <div class="bar">
+    <div class="logo"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-4 12.7c.7.6 1 1.3 1 2.1V18h6v-1.2c0-.8.3-1.5 1-2.1A7 7 0 0 0 12 2z" fill="#F5B73B"/><rect x="9" y="19" width="6" height="2" rx="1" fill="#F5B73B"/><rect x="10" y="21.5" width="4" height="1.5" rx=".75" fill="#F5B73B"/></svg>Nuru</div>
+    <button class="menu" aria-expanded="false" aria-controls="nav">☰ Menu</button>
+    <nav id="nav" role="tablist" aria-label="Sections">
+      <button role="tab" aria-selected="true" data-t="home">Accueil</button>
+      <button role="tab" aria-selected="false" data-t="idea">L’idée</button>
+      <button role="tab" aria-selected="false" data-t="app">L’application</button>
+      <button role="tab" aria-selected="false" data-t="alert">Alerte sécurité</button>
+      <button role="tab" aria-selected="false" data-t="launch">Lancement</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="home" role="tabpanel">
+  <div class="hero">
+    <h1>Nuru</h1>
+    <p>Mettre la lumière sur les cybercriminels et les arnaques en ligne. Signalez, alertez, protégez.</p>
+    <div class="count" aria-live="polite" id="count"></div>
+    <div class="hint">avant la sortie sur Google Play, le 12 décembre 2026</div>
+    <button class="btn" data-go="idea">Découvrir le projet</button>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Un fléau réel</h3><p>Faux investissements, faux gains, comptes piratés : chaque jour, des Africains perdent leur argent en ligne et n’osent pas en parler.</p></div>
+    <div class="card"><h3>Une réponse simple</h3><p>Nuru rassemble les signalements au même endroit pour que chacun voie le danger avant de payer.</p></div>
+    <div class="card"><h3>Fait ici, pour ici</h3><p>Pensé par un développeur béninois, pour les réalités des utilisateurs africains.</p></div>
+  </div>
+<div class="panel" id="fondateur">
+    <h2>Le fondateur</h2>
+    <div class="profile">
+      <div class="id">
+        <img class="photo" alt="Portrait de Mauras Michel YEDENOU" src="data:image/jpeg;base64,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">
+        <h3>Mauras Michel YEDENOU</h3>
+        <p>Informaticien, programmeur</p>
+        <div class="tags"><span>Béninois</span><span>Né à Porto-Novo</span><span>Niveau A3-B1</span><span>Français maîtrisé</span><span>Chinois en apprentissage</span></div>
+        <p><a href="mailto:maurasmichelyedenou393@gmail.com" style="color:var(--gold)">maurasmichelyedenou393@gmail.com</a></p>
+      </div>
+      <div>
+        <p class="lead">Mauras Michel YEDENOU est un informaticien béninois, né à Porto-Novo. Programmeur de niveau A3-B1, il met ses compétences techniques au service d’une cause qui touche directement sa génération : la lutte contre la cybercriminalité.</p>
+        <p class="lead">Conscient de l’ampleur des arnaques qui frappent chaque jour les utilisateurs des réseaux sociaux sur le continent, il a conçu Nuru avec une conviction ferme : une arnaque signalée une fois doit être connue de tous. Il porte ce projet de bout en bout, de la conception à la publication sur Google Play. Il maîtrise très bien la langue française et apprend le chinois, avec le souci de s’ouvrir à des partenaires d’horizons variés.</p>
+        <div class="grid">
+          <div class="card"><h3>Vision</h3><p>Faire de l’Afrique un espace numérique où l’escroquerie ne prospère plus dans l’ombre.</p></div>
+          <div class="card"><h3>Engagement</h3><p>Protéger les victimes, informer les citoyens et soutenir ceux qui luttent contre la fraude en ligne.</p></div>
+          <div class="card"><h3>Langues et savoir-faire</h3><p>Programmation et mise en ligne assurées par le fondateur ; français maîtrisé, chinois en cours d’apprentissage.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="idea" role="tabpanel" hidden>
+  <div class="panel">
+    <h2>L’idée en détail</h2>
+    <p class="lead">Nuru signifie « lumière ». Une arnaque vit dans l’ombre : elle marche tant que personne n’en parle. Nuru met la lumière sur les cybercriminels et sur leurs méthodes, pour que les Africains ne soient plus des victimes isolées.</p>
+    <h3 style="margin-top:28px">Le problème</h3>
+    <p class="lead">Faux investissements, faux gains, faux vendeurs, comptes piratés, chantage : les arnaques se multiplient sur les réseaux sociaux et les applications de messagerie. Beaucoup de victimes n’osent pas en parler, ne savent pas où signaler, et les mêmes escrocs recommencent avec d’autres personnes.</p>
+    <h3 style="margin-top:28px">La solution</h3>
+    <ol class="steps">
+      <li><i>1</i><div><strong>Je signale</strong><span>Je décris l’arnaque, j’ajoute une capture, un numéro, un lien ou un nom de compte.</span></div></li>
+      <li><i>2</i><div><strong>La communauté voit</strong><span>Les signalements similaires sont regroupés : plus on signale, plus l’alerte est forte.</span></div></li>
+      <li><i>3</i><div><strong>Je vérifie avant de payer</strong><span>Je cherche un numéro, un lien ou un profil. S’il est déjà signalé, je le sais en quelques secondes.</span></div></li>
+      <li><i>4</i><div><strong>Je suis aidé</strong><span>Si j’ai été victime, Nuru m’explique quoi faire et vers qui me tourner.</span></div></li>
+    </ol>
+    <div class="grid">
+      <div class="card main"><h3>Pour qui</h3><p>Les utilisateurs de réseaux sociaux et de mobile money en Afrique : étudiants, commerçants, entrepreneurs, familles.</p></div>
+      <div class="card main"><h3>Ce qui nous distingue</h3><p>Une base de signalements pensée pour l’Afrique, simple, gratuite, et construite avec la communauté.</p></div>
+      <div class="card main"><h3>L’impact visé</h3><p>Moins de victimes, plus de confiance dans le commerce en ligne et les paiements numériques.</p></div>
+      <div class="card main"><h3>Le modèle</h3><p>Application gratuite pour les utilisateurs. Partenariats avec des organisations, entreprises et institutions engagées contre la cybercriminalité.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="app" role="tabpanel" hidden>
+  <div class="panel">
+    <h2>L’application</h2>
+    <p class="lead">Ce que Nuru prévoit à sa sortie :</p>
+    <div class="grid">
+      <div class="card"><h3>Signaler une arnaque</h3><p>Formulaire rapide, avec captures d’écran, numéro ou lien.</p></div>
+      <div class="card"><h3>Vérifier avant de payer</h3><p>Rechercher un numéro, un lien ou un profil déjà signalé.</p></div>
+      <div class="card"><h3>Alertes par pays</h3><p>Les arnaques en cours près de chez vous, du Bénin au reste du continent.</p></div>
+      <div class="card"><h3>Aide aux victimes</h3><p>Que faire après une arnaque et vers qui se tourner.</p></div>
+      <div class="card"><h3>Anonymat possible</h3><p>Signaler sans exposer son nom.</p></div>
+      <div class="card"><h3>Léger et gratuit</h3><p>Pensé pour les téléphones courants et les connexions limitées.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="launch" role="tabpanel" hidden>
+  <div class="panel">
+    <h2>Le lancement</h2>
+    <p class="lead">Nuru arrive sur Google Play le <strong>12 décembre 2026</strong>.</p>
+    <ul class="tl">
+      <li><b>Aujourd’hui</b><span>Présentation du projet et de l’idée.</span></li>
+      <li><b>Avant la sortie</b><span>Tests avec les premiers utilisateurs et derniers réglages.</span></li>
+      <li class="big"><b>12 décembre 2026</b><span>Disponible sur Google Play.</span></li>
+    </ul>
+    <button class="btn" id="share">Partager Nuru</button>
+    <div class="hint" id="msg" style="color:var(--muted)"></div>
+  </div>
+</section>
+<section id="alert" role="tabpanel" hidden>
+  <div class="panel">
+    <h2>Nuru, une alerte de sécurité</h2>
+    <p class="lead">Nuru n’est pas seulement un formulaire de plainte. C’est un système d’alerte : quand une arnaque circule, tout le monde doit le savoir vite.</p>
+    <div class="grid">
+      <div class="card main"><h3>Alertes en direct</h3><p>Une nouvelle arnaque est signalée à plusieurs reprises : une alerte est envoyée aux utilisateurs concernés.</p></div>
+      <div class="card main"><h3>Par pays et par réseau</h3><p>Les alertes sont classées par pays et par plateforme pour rester utiles et lisibles.</p></div>
+      <div class="card main"><h3>Conseils clairs</h3><p>Chaque alerte explique comment reconnaître l’arnaque et comment s’en protéger.</p></div>
+    </div>
+    <button class="btn" data-go="launch">Voir la date de sortie</button>
+  </div>
+</section>
+
+</main>
+<footer>© 2026 Nuru – Mauras Michel YEDENOU. Les fonctions présentées sont prévues pour la sortie.</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav'),mb=document.querySelector('.menu');
+  mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  var tabs=document.querySelectorAll('[role=tab]');
+  function show(id){
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.t===id)});
+    document.querySelectorAll('[role=tabpanel]').forEach(function(p){p.hidden=p.id!==id});
+    window.scrollTo(0,0);
+    nav.classList.remove('open');mb.setAttribute('aria-expanded','false');
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.t)})});
+  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.go)})});
+  var target=new Date('2026-12-12T00:00:00').getTime(),box=document.getElementById('count');
+  function tick(){
+    var d=Math.max(0,target-Date.now()),s=Math.floor(d/1000);
+    var v=[[Math.floor(s/86400),'jours'],[Math.floor(s%86400/3600),'heures'],[Math.floor(s%3600/60),'minutes'],[s%60,'secondes']];
+    box.innerHTML=v.map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('');
+  }
+  tick();setInterval(tick,1000);
+  document.getElementById('share').addEventListener('click',function(){
+    var m=document.getElementById('msg'),u=location.href;
+    if(navigator.share){navigator.share({title:'Nuru',text:'Nuru : la lumière contre les arnaques en ligne. Sortie le 12 décembre 2026.',url:u}).catch(function(){})}
+    else if(navigator.clipboard){navigator.clipboard.writeText(u).then(function(){m.textContent='Lien copié.'},function(){m.textContent='Copiez le lien dans la barre d’adresse.'})}
+    else{m.textContent='Copiez le lien dans la barre d’adresse.'}
+  });
+})();
+</script>
+</body>
+</html>
